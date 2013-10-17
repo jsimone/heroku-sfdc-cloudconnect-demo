@@ -39,31 +39,36 @@ public class HelloServlet extends HttpServlet {
         ServletOutputStream out = resp.getOutputStream();
         
         resp.setContentType("text/html");
-        Connection conn = null;
-        try {
-        	conn = getConnection();
-        	Statement stmt = conn.createStatement();
-        	ResultSet rs = stmt.executeQuery("select name from account");
-        	out.write("Accounts:<br>".getBytes());
-        	while(rs.next()) {
-        		String name = rs.getString("name");
-        		out.write(name.getBytes());
-        		out.write("<br>".getBytes());
-        	}
-        } catch (SQLException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        } catch (URISyntaxException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        } finally {
-        	if(conn != null) {        		
-        		try {
-	                conn.close();
-                } catch (SQLException e) {
-	                // TODO Auto-generated catch block
-	                e.printStackTrace();
-                }
+        
+        if(System.getenv("CLOUDCONNECT_URL") != null) {
+        	out.write("It looks like you're missing a cloud connect DB. Please add one and try again".getBytes());
+        } else {        	
+        	Connection conn = null;
+        	try {
+        		conn = getConnection();
+        		Statement stmt = conn.createStatement();
+        		ResultSet rs = stmt.executeQuery("select name from account");
+        		out.write("Accounts:<br>".getBytes());
+        		while(rs.next()) {
+        			String name = rs.getString("name");
+        			out.write(name.getBytes());
+        			out.write("<br>".getBytes());
+        		}
+        	} catch (SQLException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	} catch (URISyntaxException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	} finally {
+        		if(conn != null) {        		
+        			try {
+        				conn.close();
+        			} catch (SQLException e) {
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			}
+        		}
         	}
         }
         
