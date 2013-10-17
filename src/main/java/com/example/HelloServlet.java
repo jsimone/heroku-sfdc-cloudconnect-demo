@@ -40,7 +40,7 @@ public class HelloServlet extends HttpServlet {
         
         resp.setContentType("text/html");
         
-        if(System.getenv("CLOUDCONNECT_URL") != null) {
+        if(System.getenv("CLOUDCONNECT_URL") == null) {
         	out.write("It looks like you're missing a cloud connect DB. Please add one and try again".getBytes());
         } else {        	
         	Connection conn = null;
