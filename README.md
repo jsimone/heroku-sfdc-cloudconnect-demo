@@ -1,6 +1,4 @@
-# Embedded Jetty template application 
-
-This is a template for a web application that uses embedded Jetty. The sample code consists of a JSP (this page) and a simple servlet.
+List account objects from cloudconnect on a Heroku app that works with Canvas 
 
 ## Running the application locally
 
