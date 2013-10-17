@@ -44,11 +44,11 @@ public class HelloServlet extends HttpServlet {
         	conn = getConnection();
         	Statement stmt = conn.createStatement();
         	ResultSet rs = stmt.executeQuery("select name from account");
-        	out.write("Accounts:<b>".getBytes());
+        	out.write("Accounts:<br>".getBytes());
         	while(rs.next()) {
         		String name = rs.getString("name");
         		out.write(name.getBytes());
-        		out.write("<b>".getBytes());
+        		out.write("<br>".getBytes());
         	}
         } catch (SQLException e) {
 	        // TODO Auto-generated catch block
