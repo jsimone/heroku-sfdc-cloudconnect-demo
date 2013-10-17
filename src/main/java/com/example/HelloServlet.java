@@ -28,10 +28,17 @@ public class HelloServlet extends HttpServlet {
 	}
 	
 	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+		this.doGet(req, resp);
+	}
+	
+	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         ServletOutputStream out = resp.getOutputStream();
         
+        resp.setContentType("text/html");
         Connection conn = null;
         try {
         	conn = getConnection();
@@ -60,7 +67,6 @@ public class HelloServlet extends HttpServlet {
         	}
         }
         
-        out.write("Hello Heroku".getBytes());
         out.flush();
         out.close();
     }
